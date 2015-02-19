@@ -1,0 +1,15 @@
+﻿{
+  "manifest_version": 2,
+  "name": "Currency rate",
+  "version": "0.2",
+  "description": "Currancy rates from kurs.com.ua and minfin.com.ua",
+  "permissions": [
+    "http://kurs.com.ua/*",
+    "http://minfin.com.ua/*"
+  ],
+  "browser_action": {
+    "default_title": "CurrencyRate",
+    "default_icon": "img/icon.png",
+    "default_popup": "app/popup.html"
+  }
+}
