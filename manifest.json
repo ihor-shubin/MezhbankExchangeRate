@@ -5,7 +5,8 @@
   "description": "Currancy rates from kurs.com.ua and minfin.com.ua",
   "permissions": [
     "http://kurs.com.ua/*",
-    "http://minfin.com.ua/*"
+    "http://minfin.com.ua/*",
+	"http://obmenka.kharkov.ua/*"
   ],
   "browser_action": {
     "default_title": "CurrencyRate",

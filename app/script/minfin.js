@@ -1,22 +1,29 @@
-﻿minfin = function () {
-  var el = document.createElement('div');
-  var minfin = document.getElementById('minfin');
-  var minfinHeader = document.getElementById('minfin-header');
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = handleStateChangeMinfin;
-  xhr.open('GET', 'http://minfin.com.ua/currency/mb/', true);
-  xhr.send();
-  //minfin
-  function handleStateChangeMinfin(data) {
-    if (data.currentTarget.readyState == 4) {
-      el.innerHTML = data.currentTarget.responseText;
-      var lastGraphicValue = data.currentTarget.responseText.replace(/\s/g, '').match(/(\{date:)[a-z,:0-9_\"\.]+}]/g) [0];
-      var lastDate = lastGraphicValue.replace(/({date:")|(",bid.*)/g, '');
-      var buy  = el.getElementsByClassName('per') [0];
-      var sell = el.getElementsByClassName('per') [3];
-      minfin.innerHTML += + buy .textContent + 'грн (' + buy .attributes['title'].value + 'грн) - ';
-      minfin.innerHTML += + sell.textContent + 'грн (' + sell.attributes['title'].value + 'грн)';
-      minfinHeader.innerHTML = lastDate;
-    }
-  }
-}
+﻿/*jslint browser: true*/
+/*jslint regexp: true*/
+window.minfin = function () {
+    'use strict';
+    var tmpEl = document.createElement('div'),
+        resultEl = document.getElementById('minfin'),
+        headerEl = document.getElementById('minfin-header'),
+        handleStateChange = function (data) {
+            var lastGraphicValue, lastDate, buy, sell;
+
+            if (data.currentTarget.readyState === 4) {
+                tmpEl.innerHTML = data.currentTarget.responseText;
+
+                lastGraphicValue = data.currentTarget.responseText.replace(/\s/g, '').match(/(\{date:)[a-z,:0-9_\"\.]+\}\]/g)[0];
+                lastDate = lastGraphicValue.replace(/(\{date:")|(",bid.*)/g, '');
+
+                buy = tmpEl.getElementsByClassName('per')[0];
+                sell = tmpEl.getElementsByClassName('per')[3];
+
+                resultEl.innerHTML += +buy.textContent + 'грн (' + buy.attributes.title.value + 'грн) - ';
+                resultEl.innerHTML += +sell.textContent + 'грн (' + sell.attributes.title.value + 'грн)';
+
+                headerEl.innerHTML = lastDate;
+            }
+        };
+
+
+    window.sendRequest('http://minfin.com.ua/currency/mb/', handleStateChange);
+};
