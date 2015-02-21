@@ -1,8 +1,7 @@
 ﻿body{
-background-color: #efefef;
-font-family: verdana";
-
-background: #efefef; /* Old browsers */
+    background-color: #efefef;
+    font-family: verdana";
+    background: #efefef; /* Old browsers */
 background: -moz-linear-gradient(top,  #efefef 0%, #c9c9c9 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#efefef), color-stop(100%,#c9c9c9)); /* Chrome,Safari4+ */
 background: -webkit-linear-gradient(top,  #efefef 0%,#c9c9c9 100%); /* Chrome10+,Safari5.1+ */
@@ -11,4 +10,17 @@ background: -ms-linear-gradient(top,  #efefef 0%,#c9c9c9 100%); /* IE10+ */
 background: linear-gradient(to bottom,  #efefef 0%,#c9c9c9 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#c9c9c9',GradientType=0 ); /* IE6-9 */
 
+}
+
+a{
+    font-weight: normal;
+    text-decoration: underline; 
+    font-weight: bold;
+    font-size: 10pt;
+    color: gray;
+}
+
+.bold{
+    font-weight: bold;
+    margin-bottom: 10px;
 }

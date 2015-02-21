@@ -1,4 +1,4 @@
-﻿/*global window*/
+﻿/*jslint browser: true*/
 function leftPad(number, targetLength) {
     'use strict';
     var output = String(number);
@@ -19,4 +19,9 @@ function sendRequest(url, callbackFn) {
 function dateToTimeStr(date) {
     'use strict';
     return leftPad(date.getHours(), 2) + ':' + leftPad(date.getMinutes(), 2);
+}
+
+function repeatAfterSecond(fn) {
+    'use strict';
+    window.setTimeout(fn, 1000);
 }

@@ -1,15 +1,16 @@
 ﻿/*jslint browser: true*/
-window.kurs = function () {
+window.kurs = function (tryPrevDate) {
     'use strict';
+
     var now = new Date(),
-        kursLink = 'http://kurs.com.ua/ajax/mejbank_chart_day/usd/' + now.getFullYear() + '-' + window.leftPad(+now.getMonth() + 1, 2) + '-' + window.leftPad(now.getDate(), 2),
+        kursLink = 'http://kurs.com.ua/ajax/mejbank_chart_day/usd/' + now.getFullYear() + '-' + window.leftPad(+now.getMonth() + 1, 2) + '-' + window.leftPad(now.getDate() - (tryPrevDate ? 1 : 0), 2),
         resultEl = document.getElementById('kurs'),
         headerEl = document.getElementById('kurs-header'),
         handleStateChange = function (data) {
             var calcFn = function (val) {
                 var i = val.length;
 
-                while (i - 1 > 0) {
+                while (i > 0) {
                     i = i - 1;
                     if (val[i][1]) {
                         return {
@@ -18,11 +19,28 @@ window.kurs = function () {
                         };
                     }
                 }
+                return {
+                    date: window.dateToTimeStr(new Date()),
+                    value: 0
+                };
             }, result, buy, sell, oldBuy, oldSell, buyDiff, cellDiff;
 
             if (data.currentTarget.readyState === 4) {
+                if (data.currentTarget.status !== 200) {
+                    if (tryPrevDate) {
+                        window.repeatAfterSecond(window.kurs);
+                    } else {
+                        window.repeatAfterSecond(function () {
+                            window.kurs(true);
+                        });
+                    }
+                    return;
+                }
                 result = JSON.parse(JSON.parse(data.currentTarget.responseText).local[0]);
 
+                if (!result) {
+                    return;
+                }
                 buy = calcFn(result.series[1].data);
                 sell = calcFn(result.series[0].data);
 
@@ -35,6 +53,8 @@ window.kurs = function () {
                 resultEl.innerHTML += +buy.value + 'грн (' + (buyDiff > 0 ? '↑ ' : '↓ ') + buyDiff + 'грн) - ';
                 resultEl.innerHTML += +sell.value + 'грн (' + (cellDiff > 0 ? '↑ ' : '↓ ') + cellDiff + 'грн)';
                 headerEl.innerHTML = buy.date;
+
+                document.getElementById('kurs-img').style.display  = 'none';
             }
         };
     window.sendRequest(kursLink, handleStateChange);

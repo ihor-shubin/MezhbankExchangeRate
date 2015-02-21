@@ -1,16 +1,22 @@
 ﻿{
-  "manifest_version": 2,
-  "name": "Currency rate",
-  "version": "0.2",
-  "description": "Currancy rates from kurs.com.ua and minfin.com.ua",
-  "permissions": [
-    "http://kurs.com.ua/*",
-    "http://minfin.com.ua/*",
-	"http://obmenka.kharkov.ua/*"
-  ],
-  "browser_action": {
-    "default_title": "CurrencyRate",
-    "default_icon": "img/icon.png",
-    "default_popup": "app/popup.html"
-  }
+    "manifest_version": 2,
+    "name": "Курс USD",
+    "version": "0.3.3",
+    "description": "Курс USD на межбанке и обменке",
+    "permissions": [
+        "http://kurs.com.ua/*",
+        "http://minfin.com.ua/*",
+        "http://obmenka.kharkov.ua/*"
+    ],
+    "icons": {
+        "16": "img/icon16.png",
+        "48": "img/icon48.png",
+        "128": "img/icon128.png"
+    },
+    "short_name": "Курс USD",
+    "browser_action": {
+        "default_title": "CurrencyRate",
+        "default_icon": "img/icon48.png",
+        "default_popup": "app/popup.html"
+    }
 }
