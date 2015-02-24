@@ -1,12 +1,13 @@
 ﻿{
     "manifest_version": 2,
     "name": "Курс USD",
-    "version": "0.3.3",
-    "description": "Курс USD на межбанке и обменке",
+    "version": "0.4.0",
+    "description": "Курс USD к UAH из разных источников.",
     "permissions": [
         "http://kurs.com.ua/*",
         "http://minfin.com.ua/*",
-        "http://obmenka.kharkov.ua/*"
+        "http://obmenka.kharkov.ua/*",
+        "http://finance.ua/*"
     ],
     "icons": {
         "16": "img/icon16.png",
