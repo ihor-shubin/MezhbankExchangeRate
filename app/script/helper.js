@@ -25,3 +25,16 @@ function repeatAfterSecond(fn) {
     'use strict';
     window.setTimeout(fn, 1000);
 }
+
+function fetchHtml(url, handler) {
+  function handleStateChange(data) {
+    if (data.currentTarget.readyState === 4) {
+      if (data.currentTarget.status !== 200) {
+          window.repeatAfterSecond(handleStateChange);
+          return;
+      }
+      handler(data.currentTarget.responseText);
+    }
+  }
+  window.sendRequest(url, handleStateChange);
+}

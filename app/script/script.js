@@ -1,5 +1,6 @@
 ﻿/*global window*/
 window.minfin();
-window.kharkov();
+//window.kharkov();
 window.kurs();
 window.finance();
+window.bestrate();

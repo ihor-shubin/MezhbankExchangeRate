@@ -7,7 +7,8 @@
         "http://kurs.com.ua/*",
         "http://minfin.com.ua/*",
         "http://obmenka.kharkov.ua/*",
-        "http://finance.ua/*"
+        "http://finance.ua/*",
+        "http://bestrate.com.ua/*"
     ],
     "icons": {
         "16": "img/icon16.png",
