@@ -6,6 +6,7 @@ window.kurs = function (tryPrevDate) {
         kursLink = 'http://kurs.com.ua/ajax/mejbank_chart_day/usd/' + now.getFullYear() + '-' + window.leftPad(+now.getMonth() + 1, 2) + '-' + window.leftPad(now.getDate() - (tryPrevDate ? 1 : 0), 2),
         resultEl = document.getElementById('kurs'),
         headerEl = document.getElementById('kurs-header'),
+        loadImgEl = document.getElementById('kurs-img'),
         handleStateChange = function (data) {
             var calcFn = function (val) {
                 var i = val.length;
@@ -50,11 +51,11 @@ window.kurs = function (tryPrevDate) {
                 buyDiff = (buy.value - oldBuy.value).toFixed(4);
                 cellDiff = (sell.value - oldSell.value).toFixed(4);
 
-                resultEl.innerHTML += +buy.value + 'грн (' + (buyDiff > 0 ? '↑ ' : '↓ ') + buyDiff + 'грн) - ';
+                resultEl.innerHTML = +buy.value + 'грн (' + (buyDiff > 0 ? '↑ ' : '↓ ') + buyDiff + 'грн) - ';
                 resultEl.innerHTML += +sell.value + 'грн (' + (cellDiff > 0 ? '↑ ' : '↓ ') + cellDiff + 'грн)';
                 headerEl.innerHTML = buy.date;
 
-                document.getElementById('kurs-img').style.display  = 'none';
+                loadImgEl.style.display  = 'none';
             }
         };
     window.sendRequest(kursLink, handleStateChange);

@@ -1,14 +1,15 @@
 ﻿{
     "manifest_version": 2,
     "name": "Курс USD",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "Курс USD к UAH из разных источников.",
     "permissions": [
         "http://kurs.com.ua/*",
         "http://minfin.com.ua/*",
         "http://obmenka.kharkov.ua/*",
         "http://finance.ua/*",
-        "http://bestrate.com.ua/*"
+        "http://bestrate.com.ua/*",
+        "https://api.privatbank.ua/p24api/*"
     ],
     "icons": {
         "16": "img/icon16.png",
