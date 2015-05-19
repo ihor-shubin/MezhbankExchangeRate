@@ -16,9 +16,10 @@ function sendRequest(url, callbackFn) {
     xhr.send();
 }
 
-function dateToTimeStr(date) {
+function dateToTimeStr(date, isShowDate) {
     'use strict';
-    return leftPad(date.getHours(), 2) + ':' + leftPad(date.getMinutes(), 2);
+    var dateStr = !isShowDate ? "" : leftPad(date.getDate(), 2) + "." + leftPad(date.getMonth() + 1, 2);
+    return leftPad(date.getHours(), 2) + ':' + leftPad(date.getMinutes(), 2) + " " + dateStr;
 }
 
 function repeatAfterSecond(fn) {
