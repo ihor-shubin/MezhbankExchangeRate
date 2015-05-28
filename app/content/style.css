@@ -24,3 +24,13 @@ a{
     font-weight: bold;
     margin-bottom: 10px;
 }
+
+.tooltip{
+    z-index: 10000;
+    position: absolute;
+    font-weight: bold;
+    background-color: #efefef;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 3px;
+}

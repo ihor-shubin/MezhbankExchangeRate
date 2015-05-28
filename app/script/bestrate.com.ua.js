@@ -68,9 +68,34 @@ window.bestrate = function () {
                     parsed.rates.map(atIndex(1))
                 ]
             },
-            tmp;
+            tmp,
+            min,
+            chart,
+            tooltip;
 
-        tmp = new window.Chartist.Line('.ct-chart', data);
+        min = Math.min.apply(null, data.series[0].map(function (val) { return parseFloat(val); }));
+        tmp = new window.Chartist.Line('.ct-chart', data, {  low: min - 1 });
+        chart = window.$('.ct-chart');
+
+        tooltip = chart.append('<div class="tooltip"></div>').find('.tooltip').hide();
+        chart.on('mouseenter', '.ct-point', function () {
+            var $point = window.$(this),
+                value = $point.attr('ct:value'),
+                seriesName = $point.parent().attr('ct:series-name');
+            tooltip.html(value).show();
+        });
+
+        chart.on('mouseleave', '.ct-point', function () {
+            tooltip.hide();
+        });
+
+        chart.on('mousemove', function (event) {
+            tooltip.css({
+                left: (event.offsetX || event.originalEvent.layerX) - tooltip.width() / 2 - 10,
+                top: (event.offsetY || event.originalEvent.layerY) - tooltip.height() - 10
+            });
+        });
+
         document.getElementById('bestrates-loader').style.display = 'none';
     }
     window.fetchHtml('http://bestrate.com.ua/news.php?action=view&news_id=2', handler);
