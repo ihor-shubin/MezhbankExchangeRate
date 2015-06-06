@@ -22,5 +22,5 @@ window.kharkov = function () {
             document.getElementById('kharkov-img').style.display  = 'none';
         };
 
-    window.fetchHtml('http://obmenka.kharkov.ua/direction/history/1', handleStateChange);
+    window.fetchHtml('https://obmenka.kharkov.ua/rate/history/1', handleStateChange);
 };
