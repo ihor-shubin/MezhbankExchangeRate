@@ -18,10 +18,10 @@ window.privat = function () {
                     return;
                 }
 
-                buy = responseData[2].buy;
-                sell = responseData[2].sale;
+                buy = +responseData[2].buy;
+                sell = +responseData[2].sale;
 
-                resultEl.innerHTML = buy + 'грн - ' + sell + 'грн';
+                resultEl.innerHTML = buy.toFixed(4) + 'грн - ' + sell.toFixed(4) + 'грн';
 
                 loadImgEl.style.display  = 'none';
             }

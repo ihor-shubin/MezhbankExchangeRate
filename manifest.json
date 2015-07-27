@@ -1,7 +1,7 @@
 ﻿{
     "manifest_version": 2,
     "name": "Курс USD",
-    "version": "0.6.3",
+    "version": "0.6.4",
     "description": "Курс USD к UAH из разных источников.",
     "permissions": [
         "http://kurs.com.ua/*",

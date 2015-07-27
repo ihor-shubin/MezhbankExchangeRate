@@ -6,7 +6,7 @@ window.nbu = function () {
         loadImgEl = document.getElementById('nbu-img'),
         handleStateChange = function (result) {
             var responseData, buy, sell;
-            
+
             if (result.currentTarget.readyState === 4) {
                 if (result.currentTarget.status !== 200) {
                     window.repeatAfterSecond(window.nbu);
@@ -18,10 +18,10 @@ window.nbu = function () {
                     return;
                 }
 
-                buy = responseData[2].buy;
-                sell = responseData[2].sale;
+                buy = +responseData[2].buy;
+                sell = +responseData[2].sale;
 
-                resultEl.innerHTML = buy + 'грн - ' + sell + 'грн';
+                resultEl.innerHTML = buy.toFixed(4) + 'грн - ' + sell.toFixed(4) + 'грн';
 
                 loadImgEl.style.display  = 'none';
             }

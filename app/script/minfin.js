@@ -2,47 +2,54 @@
 /*jslint regexp: true*/
 window.minfin = function () {
     'use strict';
-    var tmpEl = document.createElement('div'),
-        resultEl = document.getElementById('minfin'),
+    var resultEl = document.getElementById('minfin'),
         headerEl = document.getElementById('minfin-header'),
-        handleStateChange = function (data) {
-            var lastGraphicValue, buy, sell, buyTitle, sellTitle, buyEl;
+        toDayInfo,
+        yesterdayInfo,
+        prepareAndCalculateFn = function () {
+            var buy,
+                yBuy,
+                sell,
+                ySell,
+                date,
+                buyDiff,
+                sellDiff;
+            buy = +toDayInfo[toDayInfo.length - 1].ask;
+            yBuy = +yesterdayInfo[yesterdayInfo.length - 1].ask;
+            sell = +toDayInfo[toDayInfo.length - 1].bid;
+            ySell = +yesterdayInfo[yesterdayInfo.length - 1].bid;
 
+            buyDiff = buy - yBuy;
+            sellDiff = sell - ySell;
+            date = toDayInfo[toDayInfo.length - 1].date;
+
+            resultEl.innerHTML = buy + 'грн (' + (buyDiff > 0 ? '↑ ' : '↓ ') + buyDiff.toFixed(4) + 'грн) - ';
+            resultEl.innerHTML += sell + 'грн (' + (sellDiff > 0 ? '↑ ' : '↓ ') + sellDiff.toFixed(4) + 'грн)';
+            headerEl.innerHTML = window.dateToTimeStr(new Date(date), true);
+        },
+        handleStateChangeToday = function (data) {
             if (data.currentTarget.readyState === 4) {
-                if (data.currentTarget.status !== 200) {
+                if (data.currentTarget.status !== 200 || data.currentTarget.responseText === "") {
                     window.repeatAfterSecond(window.minfin);
                     return;
                 }
-                tmpEl.innerHTML = data.currentTarget.responseText;
 
-                lastGraphicValue = data
-                    .currentTarget
-                    .responseText
-                    .replace(/\s/g, '')
-                    .match(/(\{date:)[a-z,:0-9_\"\.]+\}\]/g)[0]
-                    .replace(/\]/, '')
-                    .replace(/[a-zA-Z_]+/g, '"$&"');
+                toDayInfo = JSON.parse(data.currentTarget.responseText);
+                if (yesterdayInfo) { prepareAndCalculateFn(); }
+            }
+        },
+        handleStateChangeYesterday = function (data) {
+            if (data.currentTarget.readyState === 4) {
+                if (data.currentTarget.status !== 200 || data.currentTarget.responseText === "") {
+                    window.repeatAfterSecond(window.minfin);
+                    return;
+                }
 
-                lastGraphicValue = JSON.parse(lastGraphicValue);
-
-                buyEl = tmpEl.getElementsByClassName('per');
-
-                buy = lastGraphicValue.bid || lastGraphicValue.bid_old;
-                buyTitle = buyEl[0].attributes.title.value;
-                sell = lastGraphicValue.ask || lastGraphicValue.ask_old;
-                sellTitle = buyEl[3].attributes.title.value;
-
-                resultEl.innerHTML += buy + 'грн (' + buyTitle + 'грн) - ';
-                resultEl.innerHTML += sell + 'грн (' + sellTitle + 'грн)';
-
-                lastGraphicValue.date = lastGraphicValue.date.length !== 5 ?
-                        lastGraphicValue.date.substring(0, 5) + ' ' + lastGraphicValue.date.substring(5, lastGraphicValue.date.length) :
-                        lastGraphicValue.date;
-                headerEl.innerHTML = lastGraphicValue.date;
-
-                document.getElementById('minfin-img').style.display  = 'none';
+                yesterdayInfo = JSON.parse(data.currentTarget.responseText);
+                if (toDayInfo) { prepareAndCalculateFn(); }
             }
         };
 
-    window.sendRequest('http://minfin.com.ua/currency/mb/', handleStateChange);
+    window.sendRequest('http://minfin.com.ua/data/currency/ib/usd.ib.today.json?201507271634/', handleStateChangeToday);
+    window.sendRequest('http://minfin.com.ua/data/currency/ib/usd.ib.yesterday.json?201507271634', handleStateChangeYesterday);
 };
