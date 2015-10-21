@@ -21,7 +21,7 @@ window.nbu = function () {
                 buy = +responseData[2].buy;
                 sell = +responseData[2].sale;
 
-                resultEl.innerHTML = buy.toFixed(4) + 'грн - ' + sell.toFixed(4) + 'грн';
+                resultEl.innerHTML = (sell || buy).toFixed(4) + 'грн';
 
                 loadImgEl.style.display  = 'none';
             }

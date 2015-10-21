@@ -3,6 +3,6 @@ window.minfin();
 window.kharkov();
 window.kurs();
 window.finance();
-window.bestrate();
+window.graph();
 window.nbu();
 window.privat();
