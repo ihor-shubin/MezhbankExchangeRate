@@ -14,10 +14,10 @@ window.minfin = function () {
                 date,
                 buyDiff,
                 sellDiff;
-            buy = +toDayInfo[toDayInfo.length - 1].ask;
-            yBuy = +yesterdayInfo[yesterdayInfo.length - 1].ask;
-            sell = +toDayInfo[toDayInfo.length - 1].bid;
-            ySell = +yesterdayInfo[yesterdayInfo.length - 1].bid;
+            buy = +toDayInfo[toDayInfo.length - 1].bid;
+            yBuy = +yesterdayInfo[yesterdayInfo.length - 1].bid;
+            sell = +toDayInfo[toDayInfo.length - 1].ask;
+            ySell = +yesterdayInfo[yesterdayInfo.length - 1].ask;
 
             buyDiff = buy - yBuy;
             sellDiff = sell - ySell;

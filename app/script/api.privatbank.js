@@ -14,12 +14,15 @@ window.privat = function () {
                 }
                 responseData = JSON.parse(result.currentTarget.response);
 
-                if (!responseData || !responseData[2]) {
+                responseData = responseData.filter(function (val) { return val.ccy === 'USD'; });
+                responseData = responseData.length && responseData[0];
+
+                if (!responseData) {
                     return;
                 }
 
-                buy = +responseData[2].buy;
-                sell = +responseData[2].sale;
+                buy = +responseData.buy;
+                sell = +responseData.sale;
 
                 resultEl.innerHTML = buy.toFixed(4) + 'грн - ' + sell.toFixed(4) + 'грн';
 
