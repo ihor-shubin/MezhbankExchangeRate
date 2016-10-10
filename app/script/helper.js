@@ -13,6 +13,7 @@ function sendRequest(url, callbackFn) {
     var xhr = new window.XMLHttpRequest();
     xhr.onreadystatechange = callbackFn;
     xhr.open('GET', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.send();
 }
 
