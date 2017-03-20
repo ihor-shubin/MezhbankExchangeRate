@@ -42,5 +42,5 @@ window.finance = function () {
             }
         };
 
-    window.sendRequest('http://finance.ua/ru/currency', handleStateChange);
+    window.sendRequest('https://finance.ua/ru/currency', handleStateChange);
 };

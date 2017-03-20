@@ -3,7 +3,8 @@ window.kurs = function (tryPrevDate) {
     'use strict';
 
     var now = new Date(),
-        kursLink = 'http://kurs.com.ua/ajax/mejbank_chart_day/usd/' + now.getFullYear() + '-' + window.leftPad(+now.getMonth() + 1, 2) + '-' + window.leftPad(now.getDate() - (tryPrevDate ? 1 : 0), 2),
+	
+        kursLink = 'http://old.kurs.com.ua/ajax/mejbank_chart_day/usd/' + now.getFullYear() + '-' + window.leftPad(+now.getMonth() + 1, 2) + '-' + window.leftPad(now.getDate() - (tryPrevDate ? 1 : 0), 2),
         resultEl = document.getElementById('kurs'),
         headerEl = document.getElementById('kurs-header'),
         loadImgEl = document.getElementById('kurs-img'),

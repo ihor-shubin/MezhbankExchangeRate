@@ -48,5 +48,5 @@ window.graph = function () {
 
         document.getElementById('bestrates-loader').style.display = 'none';
     }
-    window.fetchHtml('https://obmenka.kharkov.ua/rate/history/1', handler);
+    window.fetchHtml('https://kharkov.obmenka.ua/rate/history/1', handler);
 };
