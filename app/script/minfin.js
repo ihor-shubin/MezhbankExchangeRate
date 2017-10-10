@@ -6,6 +6,15 @@ window.minfin = function () {
         headerEl = document.getElementById('minfin-header'),
         toDayInfo,
         yesterdayInfo,
+		getDateObj = function (date) {
+			return {
+				year:   date.getFullYear(),
+				month:  date.getMonth() + 1,
+				day:    date.getUTCDate(),
+				hour:   date.getHours(),
+				minute: date.getMinutes()
+			};
+		},
         prepareAndCalculateFn = function () {
             var buy,
                 yBuy,
@@ -48,8 +57,16 @@ window.minfin = function () {
                 yesterdayInfo = JSON.parse(data.currentTarget.responseText);
                 if (toDayInfo) { prepareAndCalculateFn(); }
             }
-        };
-
-    window.sendRequest('http://minfin.com.ua/data/currency/ib/usd.ib.today.json?201507271634/', handleStateChangeToday);
-    window.sendRequest('http://minfin.com.ua/data/currency/ib/usd.ib.yesterday.json?201507271634', handleStateChangeYesterday);
+        },
+		now = getDateObj(new Date()),
+		yesterday = new Date(),
+		nowAppender = "" + now.year + now.month + now.day + now.hour + now.minute,
+		yesterdayAppender;
+		
+	yesterday.setDate(yesterday.getDate() - 1);
+	yesterday = getDateObj(yesterday);
+	yesterdayAppender = "" + yesterday.year + yesterday.month + yesterday.day + yesterday.hour + yesterday.minute;
+	
+    window.sendRequest('https://minfin.com.ua/data/currency/ib/usd.ib.today.json?' + nowAppender, handleStateChangeToday);
+    window.sendRequest('https://minfin.com.ua/data/currency/ib/usd.ib.yesterday.json?' + yesterdayAppender, handleStateChangeYesterday);
 };

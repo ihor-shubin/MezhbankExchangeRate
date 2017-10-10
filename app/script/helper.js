@@ -25,7 +25,7 @@ function dateToTimeStr(date, isShowDate) {
 
 function repeatAfterSecond(fn) {
     'use strict';
-    window.setTimeout(fn, 1000);
+    window.setTimeout(fn, 2000);
 }
 
 function fetchHtml(url, handler) {
