@@ -1,10 +1,10 @@
 ﻿{
     "manifest_version": 2,
     "name": "Курс USD",
-    "version": "0.6.12",
+    "version": "0.6.13",
     "description": "Курс USD к UAH из разных источников.",
     "permissions": [
-        "http://old.kurs.com.ua/*",
+		"https://old.kurs.com.ua/*",
         "https://minfin.com.ua/*",
         "https://kharkov.obmenka.ua/*",
         "https://obmenka.kharkov.ua/*",
