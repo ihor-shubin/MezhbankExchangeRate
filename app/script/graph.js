@@ -2,20 +2,33 @@
 /*jslint regexp: true*/
 window.graph = function () {
     'use strict';
+    
+    function formatDate(dateStr) {
+        var date = new Date(dateStr.replace(" ", "T"));
 
-    function handler(response) {
-        response = JSON.parse(response).reverse();
-        var data = {
-                series : [
-                    response.map(function (val) {
-                        return val.amountRetailTo;
-                    })
-                ],
-                labels : response.map(function (val) {
-                    var d = new Date(val.createdAt.replace(" ", "T"));
-                    return d.getDate() + "/" + (d.getMonth() + 1) + " " + d.getHours() + ":" + d.getMinutes();
-                })
-            },
+        return leftPad(date.getDate()) + "." + leftPad(date.getMonth() + 1) + " " + leftPad(date.getHours()) + ":" + leftPad(date.getMinutes());
+    }
+
+    const handler = function (response) {
+        const historyDataResponse = JSON.parse(response).data.history;
+        const groupedHistoryPerDay = groupBy(historyDataResponse.map(x => { return { date: x.rateDtAdd.substr(0, 10), datetime: x.rateDtAdd, rateBid: x.rateBid }; }), 'date');
+        const historyData = [];
+        const maxHistoryItems = 6;
+
+        for (let groupKey in groupedHistoryPerDay) {
+            const maxHistoryBid = groupedHistoryPerDay[groupKey].map(x => +x.rateBid).max();
+            const maxBidItem = groupedHistoryPerDay[groupKey].filter(x => +x.rateBid === maxHistoryBid).at(-1);
+
+            historyData.push({
+                value: maxBidItem.rateBid,
+                label: formatDate(maxBidItem.datetime)
+            });
+        }
+
+        let data = {
+            series: [historyData.map(x => x.value).slice(-maxHistoryItems)],
+            labels: historyData.map(x => x.label).slice(-maxHistoryItems)
+        },
             tmp,
             min,
             max,
@@ -47,6 +60,8 @@ window.graph = function () {
         });
 
         document.getElementById('bestrates-loader').style.display = 'none';
-    }
-    window.fetchHtml('https://kharkov.obmenka.ua/rate/history/1', handler);
+    },
+        requestBody = { "getrates": true, "pairID": 21 };
+
+    window.sendRequestWithRetry('https://obmenka.kharkov.ua/controls', handler, requestBody, 'POST');
 };

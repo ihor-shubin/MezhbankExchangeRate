@@ -30,9 +30,9 @@ window.kurs = function (tryPrevDate) {
             if (data.currentTarget.readyState === 4) {
                 if (data.currentTarget.status !== 200) {
                     if (tryPrevDate) {
-                        window.repeatAfterSecond(window.kurs);
+                        window.retryWithDelay(window.kurs);
                     } else {
-                        window.repeatAfterSecond(function () {
+                        window.retryWithDelay(function () {
                             window.kurs(true);
                         });
                     }
@@ -43,18 +43,19 @@ window.kurs = function (tryPrevDate) {
                 if (!result) {
                     return;
                 }
+                
                 buy = calcFn(result.series[1].data);
                 sell = calcFn(result.series[0].data);
 
                 oldBuy = calcFn(result.series[3].data);
                 oldSell = calcFn(result.series[2].data);
 
-                buyDiff = (buy.value - oldBuy.value).toFixed(4);
-                cellDiff = (sell.value - oldSell.value).toFixed(4);
+                buyDiff = (buy.value - oldBuy.value).toFixed(2);
+                cellDiff = (sell.value - oldSell.value).toFixed(2);
 
-                resultEl.innerHTML = +buy.value + 'грн (' + (buyDiff > 0 ? '↑ ' : '↓ ') + buyDiff + 'грн) - ';
-                resultEl.innerHTML += +sell.value + 'грн (' + (cellDiff > 0 ? '↑ ' : '↓ ') + cellDiff + 'грн)';
-                headerEl.innerHTML = buy.date;
+                resultEl.innerHTML = buy.value.toFixed(2) + 'грн (' + (buyDiff > 0 ? '↑ ' : '↓ ') + buyDiff + 'грн) - ';
+                resultEl.innerHTML += sell.value.toFixed(2) + 'грн (' + (cellDiff > 0 ? '↑ ' : '↓ ') + cellDiff + 'грн)';
+                headerEl.innerHTML = buy.date.trim();
 
                 loadImgEl.style.display  = 'none';
             }

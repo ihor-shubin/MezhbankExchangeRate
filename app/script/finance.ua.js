@@ -8,11 +8,11 @@ window.finance = function () {
         headerEl = document.getElementById('finance-header'),
         handleStateChange = function (data) {
             var buy, buyTitle, sell, sellTitle, date,
-                tablePath = '//table[@class="b-market-table_currency-order"]/';
+                tablePath = '//table[@class="b-market-table_currency-cash"]/';
 
             if (data.currentTarget.readyState === 4) {
                 if (data.currentTarget.status !== 200) {
-                    window.repeatAfterSecond(window.finance);
+                    window.retryWithDelay(window.finance);
                     return;
                 }
 

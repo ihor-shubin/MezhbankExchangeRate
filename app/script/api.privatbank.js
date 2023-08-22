@@ -9,7 +9,7 @@ window.privat = function () {
 
             if (result.currentTarget.readyState === 4) {
                 if (result.currentTarget.status !== 200) {
-                    window.repeatAfterSecond(window.nbu);
+                    window.retryWithDelay(window.nbu);
                     return;
                 }
                 responseData = JSON.parse(result.currentTarget.response);
@@ -24,7 +24,7 @@ window.privat = function () {
                 buy = +responseData.buy;
                 sell = +responseData.sale;
 
-                resultEl.innerHTML = buy.toFixed(4) + 'грн - ' + sell.toFixed(4) + 'грн';
+                resultEl.innerHTML = buy.toFixed(2) + 'грн - ' + sell.toFixed(2) + 'грн';
 
                 loadImgEl.style.display  = 'none';
             }

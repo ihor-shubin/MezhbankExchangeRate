@@ -32,14 +32,14 @@ window.minfin = function () {
             sellDiff = sell - ySell;
             date = toDayInfo[toDayInfo.length - 1].date;
 
-            resultEl.innerHTML = buy + 'грн (' + (buyDiff > 0 ? '↑ ' : '↓ ') + buyDiff.toFixed(4) + 'грн) - ';
-            resultEl.innerHTML += sell + 'грн (' + (sellDiff > 0 ? '↑ ' : '↓ ') + sellDiff.toFixed(4) + 'грн)';
+            resultEl.innerHTML = buy.toFixed(2) + 'грн (' + (buyDiff > 0 ? '↑ ' : '↓ ') + buyDiff.toFixed(2) + 'грн) - ';
+            resultEl.innerHTML += sell.toFixed(2) + 'грн (' + (sellDiff > 0 ? '↑ ' : '↓ ') + sellDiff.toFixed(2) + 'грн)';
             headerEl.innerHTML = window.dateToTimeStr(new Date(date), true);
         },
         handleStateChangeToday = function (data) {
             if (data.currentTarget.readyState === 4) {
                 if (data.currentTarget.status !== 200 || data.currentTarget.responseText === "") {
-                    window.repeatAfterSecond(window.minfin);
+                    window.retryWithDelay(window.minfin);
                     return;
                 }
 
@@ -50,7 +50,7 @@ window.minfin = function () {
         handleStateChangeYesterday = function (data) {
             if (data.currentTarget.readyState === 4) {
                 if (data.currentTarget.status !== 200 || data.currentTarget.responseText === "") {
-                    window.repeatAfterSecond(window.minfin);
+                    window.retryWithDelay(window.minfin);
                     return;
                 }
 

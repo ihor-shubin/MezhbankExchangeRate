@@ -2,29 +2,33 @@
 window.nbu = function () {
     'use strict';
 
-    var resultEl = document.getElementById('nbu'),
+    const resultEl = document.getElementById('nbu'),
         loadImgEl = document.getElementById('nbu-img'),
+        headerEl = document.getElementById('nbu-header'),
         handleStateChange = function (result) {
-            var responseData, buy, sell;
+            let responseData, rate, date;
 
             if (result.currentTarget.readyState === 4) {
                 if (result.currentTarget.status !== 200) {
-                    window.repeatAfterSecond(window.nbu);
+                    window.retryWithDelay(window.nbu);
                     return;
                 }
+
                 responseData = JSON.parse(result.currentTarget.response);
 
-                if (!responseData || !responseData[2]) {
+                if (!responseData) {
                     return;
                 }
 
-                buy = +responseData[2].buy;
-                sell = +responseData[2].sale;
+                const usdRate = responseData.filter(x => x.cc === 'USD')[0] || {};
+                rate = usdRate.rate || '-';
+                date = usdRate.exchangedate;
 
-                resultEl.innerHTML = (sell || buy).toFixed(4) + 'грн';
+                resultEl.innerHTML = (rate).toFixed(2) + 'грн';
+                headerEl.innerHTML = date;
 
                 loadImgEl.style.display  = 'none';
             }
         };
-    window.sendRequest("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=3", handleStateChange);
+    window.sendRequest("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json", handleStateChange);
 };

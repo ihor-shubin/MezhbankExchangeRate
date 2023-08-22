@@ -1,26 +1,43 @@
-﻿<link rel="stylesheet" media="screen" href="content/style.css" />
+﻿<link rel="stylesheet" media="screen" href="content/style.css" ></div>
 <link rel="stylesheet" href="content/chartist.min.css">
 
 <div id="result" style="width: 295px;">
-    <a href="http://www.bank.gov.ua/control/uk/curmetal/detail/currency?period=daily" target="_blank" >НБУ</a>
-    <div style="width: 100%;" class="bold" id="nbu"><img src='../img/ajax-loader.gif' id="nbu-img"/></div>
+    <div class="panel">
+        <a href="https://bank.gov.ua/ua/markets/exchangerates" target="_blank">НБУ (<span id='nbu-header'></span>)</a>
+        <div class="bold second-label" id="nbu"><div class="dots" id="nbu-img"></div></div>
+    </div>
+
+    <div class="panel">
+        <a href="https://privatbank.ua/ua/" target="_blank" >Приватбанк межкарточный</a>
+        <div class="bold second-label" id="privat"><div class="dots" id="privat-img"></div></div>
+    </div>
+
+    <div class="panel">
+        <a href="http://minfin.com.ua/currency/mb/" target="_blank" >Minfin (<span id='minfin-header'></span>)</a>
+        <div class="bold second-label" id="minfin"><div class="dots" id="minfin-img"></div></div>
+    </div>
+
+    <div class="panel">
+        <a target="_blank" href="http://kurs.com.ua/mejbank">Kurs.com.ua (<span id='kurs-header'></span>)</a>
+        <div class="bold second-label" id="kurs"> <div class="dots" id="kurs-img"></div></div>
+    </div>
+
+    <div class="panel">
+        <a target="_blank" href="http://finance.ua/ru/currency">Finance.ua (<span id='finance-header'></span>)</a>
+        <div class="bold second-label" id="finance"><div class="dots" id="finance-img"></div></div>
+    </div>
+
+    <div class="panel">
+        <a target="_blank" href="http://obmenka.kharkov.ua/">Obmenka.Kharkov.ua (<span id='kharkov-header'></span>)</a>
+        <div class="bold second-label" id="kharkov"><div class="dots" id="kharkov-img"></div></div>
+    </div>
     
-    <a href="https://privatbank.ua/ua/" target="_blank" >Приватбанк межкарточный</a>
-    <div style="width: 100%;" class="bold" id="privat"><img src='../img/ajax-loader.gif' id="privat-img"/></div>
-
-    <a href="http://minfin.com.ua/currency/mb/" target="_blank" >Minfin (<span id='minfin-header'></span>)</a>
-    <div style="width: 100%;" class="bold" id="minfin"><img src='../img/ajax-loader.gif' id="minfin-img"/></div>
-
-    <a target="_blank" href="http://kurs.com.ua/mejbank">Kurs.com.ua (<span id='kurs-header'></span>)</a>
-    <div style="width: 100%;" class="bold" id="kurs"> <img src='../img/ajax-loader.gif' id="kurs-img"/></div>
-
-    <a target="_blank" href="http://finance.ua/ru/currency">Finance.ua (<span id='finance-header'></span>)</a>
-    <div style="width: 100%;" class="bold" id="finance"><img src='../img/ajax-loader.gif' id="finance-img"/></div>
-    
-    <a target="_blank" href="http://obmenka.kharkov.ua/">Obmenka.Kharkov.ua (<span id='kharkov-header'></span>)</a>
-    <div style="width: 100%;" class="bold" id="kharkov"><img src='../img/ajax-loader.gif' id="kharkov-img"/></div>
-    <div style="width: 100%;" class="bold" id="bestrates-loader"><img src='../img/ajax-loader.gif' id="finance-img"/></div>
-    <div class="ct-chart ct-perfect-fourth"></div>
+    <div class="panel no-border">
+        <div class="bold second-label" id="bestrates-loader">
+            <div class="dots" id="finance-img"></div>
+        </div>
+        <div class="ct-chart ct-perfect-fourth"></div>
+    </div>
 </div>
 
 <script type="text/javascript" src="script/jquery.js"></script>
